@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "148730951534",
+    "project_id": "tokentransactionapp",
+    "storage_bucket": "tokentransactionapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148730951534:android:4e4c61b7c764a5fcd3f37f",
+        "android_client_info": {
+          "package_name": "com.example.token_transaction_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_Coh_x_-vsy-HebnHojKsM3M5K9EWdVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
