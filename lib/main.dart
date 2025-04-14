@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:token_transaction_app/firebase_options.dart';
 import 'package:token_transaction_app/models/user_account.dart';
+import 'package:token_transaction_app/pages/login_or_register.dart';
 import 'package:token_transaction_app/pages/login_page.dart';
 import 'package:token_transaction_app/pages/user_management.dart';
 import 'package:token_transaction_app/pages/workflow_page.dart';
@@ -31,7 +32,7 @@ class TokenTransactionApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const UserManagementPage(),
+        home: const WorkflowPage(),
       ),
     );
   }

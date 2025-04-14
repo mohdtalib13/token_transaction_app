@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:token_transaction_app/models/user_account.dart';
+import 'package:token_transaction_app/pages/login_or_register.dart';
 import 'package:token_transaction_app/pages/login_page.dart';
 import 'package:token_transaction_app/pages/workflow_page.dart';
 import 'package:token_transaction_app/services/auth_services.dart';
+import 'package:token_transaction_app/widgets/role.dart';
 
 class UserManagementPage extends StatefulWidget {
-  const UserManagementPage({super.key});
+  const UserManagementPage({
+    super.key,
+    required void Function() onTap,
+  });
 
   @override
   State<UserManagementPage> createState() => _UserManagementPageState();
@@ -19,6 +24,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
   UserRole _selectedRole = UserRole.BRANCH;
   bool _isLoading = false;
   List<UserAccount> _accounts = [];
+  void Function()? onTap;
 
   @override
   void initState() {
@@ -157,7 +163,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
               Provider.of<AuthService>(context, listen: false).logout();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
+                  builder: (context) => const LoginOrRegisterPage(),
                 ),
               );
             },
@@ -245,9 +251,43 @@ class _UserManagementPageState extends State<UserManagementPage> {
                     },
                   ),
                   const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: createNewAccount,
                     child: const Text('Create New Account'),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Already have an account?'),
+                      const SizedBox(width: 4),
+                      InkWell(
+                        onTap: onTap,
+                        child: const Text(
+                          'LogIn',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.deepPurple,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -257,8 +297,9 @@ class _UserManagementPageState extends State<UserManagementPage> {
           Row(
             children: [
               const Text('Existing Accounts'),
+              const SizedBox(width: 8),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _loadAccounts,
                 icon: const Icon(Icons.refresh_rounded),
                 label: const Text('Refresh'),
               ),
@@ -303,19 +344,25 @@ class _UserManagementPageState extends State<UserManagementPage> {
                   ),
                 ],
               ),
-              trailing: Row(
-                children: [
-                  Switch(
-                    value: account.isActive,
-                    onChanged: (value) => _toggleAccountStatus(account),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      _showCredentialDiagog(account);
-                    },
-                    child: const Text('Details'),
-                  ),
-                ],
+              trailing: SizedBox(
+                width: 160,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Switch(
+                      value: account.isActive,
+                      onChanged: (value) => _toggleAccountStatus(account),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.info_outline_rounded),
+                      onPressed: () {
+                        _showCredentialDialog(account);
+                      },
+                      color: Colors.deepPurple,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -344,7 +391,7 @@ class _UserManagementPageState extends State<UserManagementPage> {
     }
   }
 
-  void _showCredentialDiagog(UserAccount account) {
+  void _showCredentialDialog(UserAccount account) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

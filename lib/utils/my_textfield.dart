@@ -20,20 +20,17 @@ class MyTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        controller: controller,
-        autocorrect: autocorrect,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          prefixIcon: prefixIcon,
-          labelText: labelText,
-          // labelStyle: const TextStyle(color: Colors.red),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+    return TextField(
+      controller: controller,
+      autocorrect: autocorrect,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        labelText: labelText,
+        // labelStyle: const TextStyle(color: Colors.red),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
     );

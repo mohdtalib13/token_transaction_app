@@ -7,7 +7,12 @@ import 'package:token_transaction_app/services/auth_services.dart';
 import 'package:token_transaction_app/utils/my_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({
+    super.key,
+    // required this.onTap,
+  });
+
+  // final void Function()? onTap;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -16,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // late final void Function()? onTap;
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -54,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const UserManagementPage(),
+              builder: (context) => UserManagementPage(onTap: () {},),
             ),
           );
         } else {
@@ -118,6 +124,25 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Enter Password',
                 prefixIcon: const Icon(Icons.lock),
               ),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.only(right: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: const Text(
+                        'Forgot Password',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               if (_errorMessage != null) ...[
                 const SizedBox(height: 16),
                 Text(
@@ -143,6 +168,24 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       )
                     : const Text('Login'),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?"),
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: (){},
+                    child: const Text(
+                      "SignUp",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           ),
